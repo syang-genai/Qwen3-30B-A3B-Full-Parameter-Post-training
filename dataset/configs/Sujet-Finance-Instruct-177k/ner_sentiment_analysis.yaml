@@ -1,18 +1,14 @@
-import os
-import subprocess
 
-def create_recipie(dataset_path, export_path, config_path, config_name, text_keys):
-    recipe = f"""
     # Global Parameters
     project_name: 'finance-dataset'
-    dataset_path: {dataset_path}
-    export_path: {export_path}
+    dataset_path: ../data_raw/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl
+    export_path: ../data_processed/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl
 
     # Number of parallel processes
     np: 8
 
     # Declare ALL Text Fields Upfront
-    text_keys: {text_keys}
+    text_keys: ['answer', 'system_prompt', 'user_prompt']
     
     # Process Pipeline
     process: 
@@ -45,7 +41,7 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
     - special_characters_filter: 
         min_ratio: 0.0    
         max_ratio: 0.25
-
+    
     - token_num_filter: 
         hf_tokenizer: 'Qwen/Qwen3-0.6B'
         min_num: 10   
@@ -60,35 +56,4 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
         lowercase: true
         num_blocks: 9
         hamming_distance: 7
-    """
-
-    os.makedirs(config_path, exist_ok=True)
-    print("path",os.path.join(config_path,config_name))
-    with open(os.path.join(config_path,config_name), 'w') as f:
-        f.write(recipe)
     
-    print("recipe created")
-    return
-
-if __name__=="__main__":
-    dataset_path='../data_raw/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl'
-    export_path='../data_processed/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl'
-    config_path='../configs/Sujet-Finance-Instruct-177k'
-    config_name='ner_sentiment_analysis.yaml'
-    text_keys=["answer", "system_prompt","user_prompt"]
-    create_recipie(dataset_path, export_path, config_path, config_name, text_keys)
-    
-    
-    command = ["dj-process", "--config", os.path.join(config_path,config_name)]
-    process = subprocess.Popen(
-        command, 
-        stdout=subprocess.PIPE, 
-        stderr=subprocess.STDOUT, # Merge error logs into standard output
-        text=True
-    )
-
-    # Print the output line by line as it is generated
-    for line in process.stdout:
-        print(f"[DJ-LOG]: {line.strip()}")
-
-    process.wait() # Ensure the process is fully finished

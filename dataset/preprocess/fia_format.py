@@ -1,56 +1,27 @@
-# login()
-ds = load_dataset("sujet-ai/Sujet-Finance-Instruct-177k", cache_dir="../data_raw")
-#  print(ds)
-ds = ds["train"]
-ds = ds.remove_columns(['Unnamed: 0', 'inputs','dataset', 'index_level', 'conversation_id'])
+import re
+import os 
 
-target_labels=ds.unique('task_type')
-# print("taget_labels", target_labels)
+from datasets import load_dataset, DatasetDict
 
-ds_split = {label: ds.filter(lambda example: example["task_type"] == label) for label in target_labels}
-ds_split= DatasetDict(ds_split)
-# print(ds_split['sentiment_analysis'][0])
 
-# map and save
 def format_to_messages(example):
     return {
         "messages": [
-            {"role": "system", "content": example["system_prompt"]},
-            {"role": "user", "content": example["user_prompt"]},
-            {"role": "assistant", "content": example["answer"]}
+            {"role": "user", "content": example['instruction']},
+            {"role": "assistant", "content": example['output']}
         ]
     }
 
-ds_split['sentiment_analysis']=ds_split['sentiment_analysis'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['sentiment_analysis'][0])
-# save for evaluation; check evaluation dataset formate!
-ds_split['sentiment_analysis'].to_json("../data_processed/sentiment_analysis.jsonl")
 
+def content_format_to_messages(example):
+    return {
+        "messages": [
+            {"role": "system", "content": example['context']},
+            {"role": "user", "content": example['instruction']},
+            {"role": "assistant", "content": example['response']}
+        ]
+    }
 
-# print(ds_split['qa'][0])
-ds_split['qa']=ds_split['qa'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['qa'][0])
-ds_split['qa'].to_json("../data_processed/qa.jsonl")
-
-# print(ds_split['qa_with_context'][0])
-ds_split['qa_with_context']=ds_split['qa_with_context'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['qa_with_context'][0])
-
-# print(ds_split['yes_no_question'][0])
-ds_split['yes_no_question']=ds_split['yes_no_question'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['yes_no_question'][0])
-
-# print(ds_split['ner_sentiment_analysis'][0])
-ds_split['ner_sentiment_analysis']=ds_split['ner_sentiment_analysis'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['ner_sentiment_analysis'][0])
-
-# print(ds_split['topic_classification'][0])
-ds_split['topic_classification']=ds_split['topic_classification'].map(format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-# print(ds_split['topic_classification'][0])
-
-
-# multi_around conversation
-# print(ds_split['qa_conversation'][3]) 
 
 def multi_turn_format_to_messages(example):
     def universal_chat_splitter(text):
@@ -112,5 +83,15 @@ def multi_turn_format_to_messages(example):
         return history
     return {"messages":[{"role": "system", "content": example["system_prompt"]}]+universal_chat_splitter(example['user_prompt'])+[{"role": "assistant", "content": example["answer"]}]}
 
-ds_split['qa_conversation']=ds_split['qa_conversation'].map(multi_turn_format_to_messages, remove_columns=["system_prompt","answer","user_prompt","task_type"])
-print(ds_split['qa_conversation'][5])
+
+if __name__=="__main__":
+    save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_raw/Financial-Instruction-AQ22"
+    load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_raw/Financial-Instruction-AQ22"
+    
+    file_name="knowledge_qa.jsonl"
+    ds = load_dataset("json", data_files=os.path.join(load_path,file_name),split="train")
+    print(ds[1])
+    
+    ds = ds.map(format_to_messages, remove_columns=['instruction','output'])
+    print(ds[1])
+    ds.to_json(os.path.join(save_path, file_name))
