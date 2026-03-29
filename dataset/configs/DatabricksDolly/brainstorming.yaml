@@ -1,0 +1,59 @@
+
+    # Global Parameters
+    project_name: 'finance-dataset'
+    dataset_path: ../data_raw/DatabricksDolly/brainstorming.jsonl
+    export_path: ../data_processed/DatabricksDolly/brainstorming.jsonl
+
+    # Number of parallel processes
+    np: 2
+
+    # Declare ALL Text Fields Upfront
+    text_keys: ['instruction', 'context', 'response']
+    
+    # Process Pipeline
+    process: 
+    # normalize
+    - whitespace_normalization_mapper: 
+    - clean_email_mapper:                                     
+    - clean_html_mapper:                                      
+    - clean_ip_mapper:                                       
+    - clean_links_mapper:                                     
+    - clean_copyright_mapper: 
+
+    # filter  
+    - language_id_score_filter:
+        lang: 'en'
+        min_score: 0.8
+    - maximum_line_length_filter: # 104575811
+        min_len: 5
+    - text_length_filter: # 104573711
+        min_len: 5
+    - alphanumeric_filter:                                    
+        tokenization: false                                     
+        min_ratio: 0.0                                          
+        max_ratio: 0.9 
+    - flagged_words_filter: # 104576967
+        lang: en
+        max_ratio: 0.017
+    - character_repetition_filter: # 104630030
+        rep_len: 10
+        max_ratio: 0.6
+    - special_characters_filter: 
+        min_ratio: 0.0    
+        max_ratio: 0.25
+
+    - token_num_filter: 
+        hf_tokenizer: 'Qwen/Qwen3-0.6B'
+        min_num: 1   
+        max_num: 10000
+
+    # remove duplicates
+    - document_deduplicator:
+        lowercase: true
+    - document_simhash_deduplicator:  
+        tokenization: space
+        window_size: 3
+        lowercase: true
+        num_blocks: 9
+        hamming_distance: 7
+    
