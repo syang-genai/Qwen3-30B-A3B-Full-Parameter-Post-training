@@ -5,7 +5,7 @@ def main(files_counts,save_path):
     ds_list=[]
     for f, c in files_counts.items():
         ds=load_dataset("json", data_files=f,split="train")
-        ds_list.append(ds)
+        ds_list.append(ds.select(range(c)))
     
     dataset=concatenate_datasets(ds_list)
     dataset = dataset.shuffle(seed=42)
