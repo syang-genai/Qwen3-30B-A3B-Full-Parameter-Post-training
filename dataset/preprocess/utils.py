@@ -87,3 +87,12 @@ def format_to_generalqa_eval(example,system,user,assistant):
         ], 
         "response": example[assistant]
     }
+
+
+def nosystem_format_to_generalqa_eval(example,user,assistant):
+    return {
+        "messages": [
+            {"role": "user", "content": example[user]},
+        ], 
+        "response": example[assistant]
+    }

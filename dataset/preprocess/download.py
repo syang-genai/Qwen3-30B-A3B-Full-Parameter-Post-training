@@ -19,6 +19,7 @@ def SujetFinanceInstruct(save_path):
 def FinancialInstructionAq22(save_path):
     ds = load_dataset("DeividasM/financial-instruction-aq22")
     ds = ds["train"]
+    ds = ds.select(range(int(len(ds)*0.1)))
     ds.to_json(os.path.join(save_path, "knowledge_qa.jsonl"))
     print("financialinstructionaq22 exmaple: ", ds[0])
     return 
@@ -62,6 +63,7 @@ def FinanceInstruct500k(save_path):
     ds = load_dataset("Josephgflowers/Finance-Instruct-500k")
     ds = ds["train"]
     ds = ds.remove_columns(["system"])
+    ds = ds.select(range(int(len(ds)*0.1)))
     ds.to_json(os.path.join(save_path, "financeinstruct500k.jsonl"))
     print("financeinstruct500k exmaple: ", ds[0])
     return
@@ -76,9 +78,9 @@ def FinanceReasoningSynthetic(save_path):
 
 
 if __name__=="__main__":
-    SujetFinanceInstruct(save_path="../data_raw/Sujet-Finance-Instruct-177k")
+    # SujetFinanceInstruct(save_path="../data_raw/Sujet-Finance-Instruct-177k")
     FinancialInstructionAq22(save_path="../data_raw/Financial-Instruction-AQ22")
     # MathInstruct(save_path="../data_raw/MathInstruct")
-    DatabricksDolly(save_path="../data_raw/DatabricksDolly")
-    FinanceInstruct500k(save_path="../data_raw/FinanceInstruct500k")
-    FinanceReasoningSynthetic(save_path="../data_raw/FinanceReasoningSynthetic")
+    # DatabricksDolly(save_path="../data_raw/DatabricksDolly")
+    # FinanceInstruct500k(save_path="../data_raw/FinanceInstruct500k")
+    # FinanceReasoningSynthetic(save_path="../data_raw/FinanceReasoningSynthetic")

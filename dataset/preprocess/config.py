@@ -70,15 +70,16 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
     print("recipe created")
     return
 
+
 if __name__=="__main__":
-    dataset_path='../data_raw/Sujet-Finance-Instruct-177k'
-    export_path='../data_processed/Sujet-Finance-Instruct-177k'
-    data_name='sentiment_analysis.jsonl'
+    dataset_path='../data_raw/FinanceReasoningSynthetic'
+    export_path='../data_processed/FinanceReasoningSynthetic'
+    data_name='financereasoningsynthetic.jsonl'
     
-    config_path='../configs/Sujet-Finance-Instruct-177k'
-    config_name='sentiment_analysis.yaml'
+    config_path='../configs/FinanceReasoningSynthetic'
+    config_name='financereasoningsynthetic.yaml'
     
-    text_keys=["answer","system_prompt","user_prompt"]
+    text_keys=["question","cot","answer"]
     create_recipie(os.path.join(dataset_path,data_name), os.path.join(export_path,data_name), config_path, config_name, text_keys)
     
     command = ["dj-process", "--config", os.path.join(config_path,config_name)]
@@ -88,7 +89,7 @@ if __name__=="__main__":
         stderr=subprocess.STDOUT, # merge error logs into standard output
         text=True
     )
-
+    
     # print the output line by line as it is generated
     for line in process.stdout:
         print(f"[DJ-LOG]: {line.strip()}")
