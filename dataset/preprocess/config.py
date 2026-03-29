@@ -9,7 +9,7 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
     export_path: {export_path}
 
     # Number of parallel processes
-    np: 8
+    np: 2
 
     # Declare ALL Text Fields Upfront
     text_keys: {text_keys}
@@ -29,9 +29,9 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
         lang: 'en'
         min_score: 0.8
     - maximum_line_length_filter: # 104575811
-        min_len: 20
+        min_len: 5
     - text_length_filter: # 104573711
-        min_len: 30
+        min_len: 5
     - alphanumeric_filter:                                    
         tokenization: false                                     
         min_ratio: 0.0                                          
@@ -48,7 +48,7 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
 
     - token_num_filter: 
         hf_tokenizer: 'Qwen/Qwen3-0.6B'
-        min_num: 10   
+        min_num: 1   
         max_num: 10000
 
     # remove duplicates
@@ -71,24 +71,26 @@ def create_recipie(dataset_path, export_path, config_path, config_name, text_key
     return
 
 if __name__=="__main__":
-    dataset_path='../data_raw/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl'
-    export_path='../data_processed/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl'
-    config_path='../configs/Sujet-Finance-Instruct-177k'
-    config_name='ner_sentiment_analysis.yaml'
-    text_keys=["answer", "system_prompt","user_prompt"]
-    create_recipie(dataset_path, export_path, config_path, config_name, text_keys)
+    dataset_path='../data_raw/Sujet-Finance-Instruct-177k'
+    export_path='../data_processed/Sujet-Finance-Instruct-177k'
+    data_name='sentiment_analysis.jsonl'
     
+    config_path='../configs/Sujet-Finance-Instruct-177k'
+    config_name='sentiment_analysis.yaml'
+    
+    text_keys=["answer","system_prompt","user_prompt"]
+    create_recipie(os.path.join(dataset_path,data_name), os.path.join(export_path,data_name), config_path, config_name, text_keys)
     
     command = ["dj-process", "--config", os.path.join(config_path,config_name)]
     process = subprocess.Popen(
         command, 
         stdout=subprocess.PIPE, 
-        stderr=subprocess.STDOUT, # Merge error logs into standard output
+        stderr=subprocess.STDOUT, # merge error logs into standard output
         text=True
     )
 
-    # Print the output line by line as it is generated
+    # print the output line by line as it is generated
     for line in process.stdout:
         print(f"[DJ-LOG]: {line.strip()}")
 
-    process.wait() # Ensure the process is fully finished
+    process.wait() # ensure the process is fully finished

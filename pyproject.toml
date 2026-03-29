@@ -8,7 +8,7 @@ dependencies = []
 
 [dependency-groups]
 download-formate = [
-    "dataset>=1.6.2",
+    "datasets>=4.0.0",
     "huggingface-hub>=0.36.2",
 ]
 preprocess-mix = [

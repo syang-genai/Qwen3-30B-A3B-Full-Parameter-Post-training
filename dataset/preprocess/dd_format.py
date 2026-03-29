@@ -16,7 +16,6 @@ def main(load_path,train_save_path,eval_save_path,file_name,num_eval,system,user
     train_ds = ds_shuffled.select(range(num_train))
     eval_ds = ds_shuffled.select(range(num_eval, len(ds_shuffled)))
     
-
     # map function with arguments 
     train_ds = train_ds.map(content_format_to_messages, 
                             fn_kwargs={
@@ -45,7 +44,7 @@ def main(load_path,train_save_path,eval_save_path,file_name,num_eval,system,user
 
 
 if __name__=="__main__":
-    load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_raw/DatabricksDolly"
+    load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_proprecessed/DatabricksDolly"
     train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/DatabricksDolly/train"
     eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/DatabricksDolly/eval"
     file_name="summarization.jsonl"

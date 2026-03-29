@@ -5,7 +5,7 @@
     export_path: ../data_processed/Sujet-Finance-Instruct-177k/ner_sentiment_analysis.jsonl
 
     # Number of parallel processes
-    np: 8
+    np: 2
 
     # Declare ALL Text Fields Upfront
     text_keys: ['answer', 'system_prompt', 'user_prompt']
@@ -41,7 +41,7 @@
     - special_characters_filter: 
         min_ratio: 0.0    
         max_ratio: 0.25
-    
+
     - token_num_filter: 
         hf_tokenizer: 'Qwen/Qwen3-0.6B'
         min_num: 10   

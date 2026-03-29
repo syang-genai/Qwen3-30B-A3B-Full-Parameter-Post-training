@@ -1,8 +1,10 @@
+import re
+
 def format_to_messages(example, user, assistant):
     return {
         "messages": [
-            {"role": "user", "content": example[user]+"/no_think"},
-            {"role": "assistant", "content": "<think>/n/n</think>"+example[assistant]}
+            {"role": "user", "content": example[user]},
+            {"role": "assistant", "content": example[assistant]}
         ]
     }
 
@@ -11,8 +13,8 @@ def content_format_to_messages(example,system,user,assistant):
     return {
         "messages": [
             {"role": "system", "content": example[system]},
-            {"role": "user", "content": example[user]+"/no_think"},
-            {"role": "assistant", "content": "<think>/n/n</think>"+example[assistant]}
+            {"role": "user", "content": example[user]},
+            {"role": "assistant", "content": example[assistant]}
         ]
     }
 
@@ -68,14 +70,12 @@ def multi_turn_format_to_messages(example,system,user,assistant):
                         "role": current_role,
                         "content": segment
                     })
-                        
+                     
                 # 5. Automatic Role Toggle
                 # If the next segment is a 'floating' sentence (no label), 
                 # it will correctly assume the opposite role to maintain the flow.
                 current_role = "assistant" if current_role == "user" else "user"
-        
-        history[-1]["user"]=history[-1]["user"]
-        return history    
+        return history 
     return {"messages":[{"role": "system", "content": example[system]}]+universal_chat_splitter(example[user])+[{"role": "assistant", "content": example[assistant]}]}
 
 
