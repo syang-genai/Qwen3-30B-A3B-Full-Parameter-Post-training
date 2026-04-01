@@ -67,7 +67,7 @@ def main_multi_tune(load_path,train_save_path,file_name,system,user,assistant):
 
 if __name__=="__main__": 
     # load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/Sujet-Finance-Instruct-177k"
-    # file_name="sentiment_analysis.jsonl"
+    # file_name="ner_sentiment_analysis.jsonl"
     
     # train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/Sujet-Finance-Instruct-177k"
     # eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/Sujet-Finance-Instruct-177k"
@@ -77,7 +77,7 @@ if __name__=="__main__":
     # assistant='answer'
     # train_eval_ratio=0.2
     # main(load_path,train_save_path,eval_save_path,file_name,train_eval_ratio,system,user,assistant)
-
+    
     load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/Sujet-Finance-Instruct-177k"
     file_name="qa_conversation.jsonl"
     

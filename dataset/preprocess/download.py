@@ -78,9 +78,9 @@ def FinanceReasoningSynthetic(save_path):
 
 
 if __name__=="__main__":
-    # SujetFinanceInstruct(save_path="../data_raw/Sujet-Finance-Instruct-177k")
+    SujetFinanceInstruct(save_path="../data_raw/Sujet-Finance-Instruct-177k")
     FinancialInstructionAq22(save_path="../data_raw/Financial-Instruction-AQ22")
     # MathInstruct(save_path="../data_raw/MathInstruct")
-    # DatabricksDolly(save_path="../data_raw/DatabricksDolly")
-    # FinanceInstruct500k(save_path="../data_raw/FinanceInstruct500k")
-    # FinanceReasoningSynthetic(save_path="../data_raw/FinanceReasoningSynthetic")
+    DatabricksDolly(save_path="../data_raw/DatabricksDolly")
+    FinanceInstruct500k(save_path="../data_raw/FinanceInstruct500k")
+    FinanceReasoningSynthetic(save_path="../data_raw/FinanceReasoningSynthetic")
