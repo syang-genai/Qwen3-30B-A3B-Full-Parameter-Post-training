@@ -17,11 +17,11 @@ def main(files_counts,save_path):
 if __name__=="__main__":
     files_counts=dict()
     base_path=[
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/DatabricksDolly",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/FinanceInstruct500k",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/Financial-Instruction-AQ22",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/Sujet-Finance-Instruct-177k",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/FinanceReasoningSynthetic",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/DatabricksDolly",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/FinanceInstruct500k",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/Financial-Instruction-AQ22",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/Sujet-Finance-Instruct-177k",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/FinanceReasoningSynthetic",
         ]
     for base in base_path:
         for filename in os.listdir(base):

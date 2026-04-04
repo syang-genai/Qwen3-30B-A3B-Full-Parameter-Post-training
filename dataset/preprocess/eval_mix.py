@@ -17,16 +17,16 @@ def main(files_counts,save_path):
 if __name__=="__main__":
     files_counts=dict()
     base_path=[
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/DatabricksDolly",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/FinanceInstruct500k",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/Financial-Instruction-AQ22",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/Sujet-Finance-Instruct-177k",
-        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/FinanceReasoningSynthetic"
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/DatabricksDolly",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/FinanceInstruct500k",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/Financial-Instruction-AQ22",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/Sujet-Finance-Instruct-177k",
+        "/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/FinanceReasoningSynthetic"
         ]
     for base in base_path:
         for filename in os.listdir(base):
             full_path = os.path.join(base, filename)
             files_counts[full_path]=100
     
-    save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/eval_mix"
+    save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/eval_mix"
     main(files_counts,save_path)

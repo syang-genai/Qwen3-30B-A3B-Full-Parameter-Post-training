@@ -46,8 +46,8 @@ def main(load_path,train_save_path,eval_save_path,file_name,train_eval_ratio,use
 
 if __name__=="__main__":
     load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/FinanceInstruct500k"
-    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/FinanceInstruct500k"
-    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/FinanceInstruct500k"
+    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/FinanceInstruct500k"
+    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/FinanceInstruct500k"
     file_name="financeinstruct500k.jsonl"
     
     user="user"

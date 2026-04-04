@@ -2,7 +2,6 @@ import os
 from datasets import load_dataset
 
 def nothink_single_turn_chat(example):
-    # nothink_example={"messages":list()}
     for item in example["messages"]:
         if item["role"]=="user":
             item["content"]=item["content"]+" "+"/no_think"
@@ -12,17 +11,19 @@ def nothink_single_turn_chat(example):
 
 
 def multi_turn_chat(example):
+    chat_example={"messages":list()}
     for item in example["messages"][:-1]:
         if item["role"]=="user":
             item["content"]=item["content"]+" "+"/no_think"
+            chat_example["messages"].append({"role":"user","content":item["content"]})
         elif item["role"]=="assistant":
             item["content"]="<think>\n\n</think>\n\n"+item["content"]
-            item["loss"] = False
-    
+            chat_example["messages"].append({"role":"assistant","content":item["content"],"loss":False})
+            
     item=example["messages"][-1]
     item["content"]="<think>\n\n</think>\n\n"+item["content"]
-    item["loss"] = True
-    return example
+    chat_example["messages"].append({"role":"assistant","content":item["content"],"loss":False})
+    return chat_example
 
 
 def main(load_path,save_path,files, map_func):
@@ -40,8 +41,8 @@ def main(load_path,save_path,files, map_func):
 
 
 if __name__=="__main__":
-    load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/Sujet-Finance-Instruct-177k"
-    save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format_msswift/Sujet-Finance-Instruct-177k"    
+    load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/Sujet-Finance-Instruct-177k"
+    save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/msswift_grpo_train_dataset/Sujet-Finance-Instruct-177k"    
     files=["qa_conversation.jsonl"]
     
     map_func=multi_turn_chat

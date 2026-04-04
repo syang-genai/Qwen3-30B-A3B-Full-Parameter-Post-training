@@ -48,8 +48,8 @@ def main(load_path,train_save_path,eval_save_path,file_name,train_eval_ratio,sys
 
 if __name__=="__main__":
     load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/DatabricksDolly"
-    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/DatabricksDolly"
-    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/DatabricksDolly"
+    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/DatabricksDolly"
+    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/DatabricksDolly"
     file_name="classification.jsonl"
     
     system="context"

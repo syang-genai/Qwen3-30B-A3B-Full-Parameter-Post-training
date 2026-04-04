@@ -81,8 +81,8 @@ if __name__=="__main__":
     load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/Sujet-Finance-Instruct-177k"
     file_name="qa_conversation.jsonl"
     
-    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/Sujet-Finance-Instruct-177k"
-    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/Sujet-Finance-Instruct-177k"
+    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/Sujet-Finance-Instruct-177k"
+    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/Sujet-Finance-Instruct-177k"
     
     system='system_prompt'
     user='user_prompt'

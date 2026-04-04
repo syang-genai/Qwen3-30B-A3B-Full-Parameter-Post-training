@@ -61,8 +61,8 @@ def main(load_path,train_save_path,eval_save_path,file_name,train_eval_ratio,cot
 
 if __name__=="__main__":
     load_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/data_processed/FinanceReasoningSynthetic"
-    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_data_format/FinanceReasoningSynthetic"
-    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_data_format/FinanceReasoningSynthetic"
+    train_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/train_dataset/FinanceReasoningSynthetic"
+    eval_save_path="/root/Qwen3-30B-A3B-Full-Parameter-Post-training/dataset/eval_dataset/FinanceReasoningSynthetic"
     file_name="financereasoningsynthetic.jsonl"
     
     user="question"
